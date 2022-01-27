@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
@@ -7,59 +8,66 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="../Dashboard/style.css">
 </head>
+
 <body>
-    
+
     <input type="checkbox" id="sidebar-toggle">
     <div class="sidebar">
         <div class="sidebar-header">
             <h3 class="brand">
-                <span class="ti-unlink"></span> 
+                <span class="ti-unlink"></span>
                 <span>easywire</span>
-            </h3> 
+            </h3>
             <label for="sidebar-toggle" class="ti-menu-alt"></label>
         </div>
-        
+
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="">
+                    <a href="../../src/Index.html">
                         <span class="ti-home"></span>
                         <span>Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="Thalamancreate.php">
                         <span class="ti-face-smile"></span>
-                        <span>Team</span>
+                        <span>Transaksi</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Ttampilan.php">
+                        <span class="ti-agenda"></span>
+                        <span>mutasi</span>
                     </a>
                 </li>
                 <li>
                     <a href="">
-                        <span class="ti-agenda"></span>
-                        <span>Tasks</span>
+                        <span class="ti-sign-out"></span>
+                        <span>Logout</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
-    
-    
+
+
     <div class="main-content">
-        
+
         <header>
             <div class="search-wrapper">
                 <span class="ti-search"></span>
                 <input type="search" placeholder="Search">
             </div>
-            
+
             <div class="social-icons">
-             
+
                 <div></div>
             </div>
         </header>
-        
+
         <main>
-        <?php
+            <?php
             // session_start();
             require_once '../koneksi.php';
 
@@ -87,7 +95,7 @@
 
             $grand = 0;
             ?>
-    
+
             <style>
                 /* simple reset css */
                 * {
@@ -235,114 +243,115 @@
                 }
             </style>
 
-                <div class="container">
-                    <form action="Tcontroller.php" method="post" style="margin: 0 1rem;">
+            <div class="container">
+                <form action="Tcontroller.php" method="post" style="margin: 0 1rem;">
 
-                        <!-- pesan -->
-                        <?php if (isset($_SESSION['pesanobat'])) : ?>
-                            <h4>Obat sudah masuk!</h4>
-                        <?php endif; ?>
+                    <!-- pesan -->
+                    <?php if (isset($_SESSION['pesanobat'])) : ?>
+                        <h4>Obat sudah masuk!</h4>
+                    <?php endif; ?>
 
-                        <div class="sticky-top">
-                            <div class="form-group">
-                                <label for="obat">Obat</label>
-                                <select name="idObat" id="obat" required>
-                                    <option value="">-- Pilih Obat --</option>
-                                    <?php foreach ($readObat as $r) : ?>
-                                        <option value="<?= $r['idobat']; ?>"><?= $r['namaobat'] . ' | Rp' . number_format($r['hargajual'], 0, ',', '.'); ?></option>
+                    <div class="sticky-top">
+                        <div class="form-group">
+                            <label for="obat">Obat</label>
+                            <select name="idObat" id="obat" required>
+                                <option value="">-- Pilih Obat --</option>
+                                <?php foreach ($readObat as $r) : ?>
+                                    <option value="<?= $r['idobat']; ?>"><?= $r['namaobat'] . ' | Rp' . number_format($r['hargajual'], 0, ',', '.'); ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah">Jumlah</label>
+                            <input type="number" id="jumlah" name="jumlahObat" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" name="addButton" class="addButton" id="addButton">Tambah Obat Lainnya</button>
+                        </div>
+                    </div>
+                </form>
+
+                <form action="Tcontroller.php" method="post">
+                    <input type="hidden" name="tanggalTransaksi" value="<?= $_SESSION['tanggalTransaksi']; ?>">
+                    <input type="hidden" name="pelanggan" value="<?= $_SESSION['pelanggan']; ?>">
+                    <input type="hidden" name="kategoriPelangganTransaksi" value="<?= $_SESSION['kategoriPelangganTransaksi']; ?>">
+                    <div class="table">
+                        <table class="first-table">
+                            <thead>
+                                <tr>
+                                    <td>Tanggal Transaksi</td>
+                                    <td><?= $_SESSION['tanggalTransaksi']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Pelanggan</td>
+                                    <td><?= $readPelanggan['namalengkap']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Kategori Pelanggan</td>
+                                    <td><?= $_SESSION['kategoriPelangganTransaksi']; ?></td>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <table class="second-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Obat</th>
+                                    <th>Jumlah</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Total Harga</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 1;
+                                $j = 1;
+                                $l = 1;
+                                ?>
+                                <?php if (isset($_SESSION['daftarObat'])) :  ?>
+                                    <?php foreach ($_SESSION['daftarObat'] as $dob) : ?>
+                                        <tr>
+                                            <input type="hidden" name="idObat<?= $i++; ?>" value="<?= $dob['idobat'] ?>">
+                                            <input type="hidden" name="hargaJual<?= $j++; ?>" value="<?= $dob['hargajual'] ?>">
+                                            <input type="hidden" name="jumlahObat<?= $l++; ?>" value="<?= $dob['jumlahobat'] ?>">
+                                            <input type="hidden" name="arrLength" value="<?= count($_SESSION['daftarObat']); ?>">
+                                            <td><?= $dob['namaobat']; ?></td>
+                                            <td><?= number_format($dob['jumlahobat'], 0, ',', '.'); ?></td>
+                                            <td>Rp<?= number_format($dob['hargajual'], 0, ',', '.'); ?></td>
+
+                                            <?php $grand += $dob['jumlahobat'] * $dob['hargajual']; ?>
+                                            <td>Rp<?= number_format($dob['jumlahobat'] * $dob['hargajual'], 0, ',', '.'); ?></td>
+                                        </tr>
                                     <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="jumlah">Jumlah</label>
-                                <input type="number" id="jumlah" name="jumlahObat" required>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" name="addButton" class="addButton" id="addButton">Tambah Obat Lainnya</button>
-                            </div>
-                        </div>
-                    </form>
+                                <?php endif; ?>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3">Grand Total</td>
+                                    <td>Rp<?= number_format($grand, 0, ',', '.'); ?></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
 
-                    <form action="Tcontroller.php" method="post">
-                        <input type="hidden" name="tanggalTransaksi" value="<?= $_SESSION['tanggalTransaksi']; ?>">
-                        <input type="hidden" name="pelanggan" value="<?= $_SESSION['pelanggan']; ?>">
-                        <input type="hidden" name="kategoriPelangganTransaksi" value="<?= $_SESSION['kategoriPelangganTransaksi']; ?>">
-                        <div class="table">
-                            <table class="first-table">
-                                <thead>
-                                    <tr>
-                                        <td>Tanggal Transaksi</td>
-                                        <td><?= $_SESSION['tanggalTransaksi']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pelanggan</td>
-                                        <td><?= $readPelanggan['namalengkap']; ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kategori Pelanggan</td>
-                                        <td><?= $_SESSION['kategoriPelangganTransaksi']; ?></td>
-                                    </tr>
-                                </thead>
-                            </table>
+                    <div class="form-group">
+                        <label for="bayar">Bayar</label>
+                        <input type="number" name="bayar" id="bayar" placeholder="Rp">
+                    </div>
 
-                            <table class="second-table">
-                                <thead>
-                                    <tr>
-                                        <th>Nama Obat</th>
-                                        <th>Jumlah</th>
-                                        <th>Harga Satuan</th>
-                                        <th>Total Harga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $i = 1;
-                                    $j = 1;
-                                    $l = 1;
-                                    ?>
-                                    <?php if (isset($_SESSION['daftarObat'])) :  ?>
-                                        <?php foreach ($_SESSION['daftarObat'] as $dob) : ?>
-                                            <tr>
-                                                <input type="hidden" name="idObat<?= $i++; ?>" value="<?= $dob['idobat'] ?>">
-                                                <input type="hidden" name="hargaJual<?= $j++; ?>" value="<?= $dob['hargajual'] ?>">
-                                                <input type="hidden" name="jumlahObat<?= $l++; ?>" value="<?= $dob['jumlahobat'] ?>">
-                                                <input type="hidden" name="arrLength" value="<?= count($_SESSION['daftarObat']); ?>">
-                                                <td><?= $dob['namaobat']; ?></td>
-                                                <td><?= number_format($dob['jumlahobat'], 0, ',', '.'); ?></td>
-                                                <td>Rp<?= number_format($dob['hargajual'], 0, ',', '.'); ?></td>
-
-                                                <?php $grand += $dob['jumlahobat'] * $dob['hargajual']; ?>
-                                                <td>Rp<?= number_format($dob['jumlahobat'] * $dob['hargajual'], 0, ',', '.'); ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="3">Grand Total</td>
-                                        <td>Rp<?= number_format($grand, 0, ',', '.'); ?></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="bayar">Bayar</label>
-                            <input type="number" name="bayar" id="bayar" placeholder="Rp">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="hidden" name="grandTotal" value="<?= $grand; ?>">
-                            <button type="submit" class="confirmButton" name="finalTransaksi">Selesaikan Transaksi</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="form-group">
+                        <input type="hidden" name="grandTotal" value="<?= $grand; ?>">
+                        <button type="submit" class="confirmButton" name="finalTransaksi">Selesaikan Transaksi</button>
+                    </div>
+                </form>
+            </div>
 
     </div>
-            
-        </main>
-        
+
+    </main>
+
     </div>
-    
+
 </body>
+
 </html>
