@@ -1,0 +1,36 @@
+/* 
+# Reset css 
+# Tidak masalah jika terhapus
+*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 
+# Refrensi: 
+# Web Programming Unpas bag. FlexBox 
+# Web Programming Unpas bag. Viewport Units 
+*/
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+form button {
+    margin-top: 24px;
+}
