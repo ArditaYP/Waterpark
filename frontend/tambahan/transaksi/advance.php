@@ -35,14 +35,16 @@
                         <span>Transaksi</span>
                     </a>
                 </li>
+                <?php if ($_SESSION['leveluser'] == '2') : ?>
+                    <li>
+                        <a href="Ttampilan.php">
+                            <span class="ti-agenda"></span>
+                            <span>mutasi</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
                 <li>
-                    <a href="Ttampilan.php">
-                        <span class="ti-agenda"></span>
-                        <span>mutasi</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
+                    <a href="../../src/logout.php">
                         <span class="ti-sign-out"></span>
                         <span>Logout</span>
                     </a>

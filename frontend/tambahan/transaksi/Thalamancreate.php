@@ -39,7 +39,7 @@ require_once '../koneksi.php';
                         <span>Transaksi</span>
                     </a>
                 </li>
-                <?php if ($_SESSION['leveluser'] != '2') : ?>
+                <?php if ($_SESSION['leveluser'] == '2') : ?>
                     <li>
                         <a href="Ttampilan.php">
                             <span class="ti-agenda"></span>
