@@ -67,8 +67,7 @@ if (isset($_POST['masukBtn'])) {
     // menimpa tabel sebelumnya
     $tb_user = mysqli_query($conn, "SELECT * FROM tb_user WHERE nama = '$nama'");
     $result = mysqli_num_rows($tb_user);
-    $check = mysqli_query($conn, $tb_user)->fetch_assoc();
-
+    $check = $tb_user->fetch_assoc();
     // kenapa ada bagian oop "->fetch_assoc"? ane gatau gimana jelasinnya, Refrensi: Web Programming Unpas bag. OOP Php
     // bagi ane, daripada buat variable yang menampung "mysqli_query($conn, $tb_user)" mending ane langsung aja kasih "->fetch_assoc" hehe
     // ada beragam cara, hasilnya sama kok
@@ -80,7 +79,7 @@ if (isset($_POST['masukBtn'])) {
         // dd(password_hash($password, PASSWORD_DEFAULT));
         //cek password
         if ($password ==  $realpasswordChecker['password']) {
-            $_SESSION['leveluser'] = $check['level'];
+            $_SESSION['leveluser'] = $check['leveluser'];
             // masuk halaman
             header("Location: ../frontend/src/index.html");
         } else {
