@@ -1,5 +1,6 @@
 <?php
 require_once '../koneksi.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,52 +15,47 @@ require_once '../koneksi.php';
 
 <body>
 
-    <input type="checkbox" id="nav-toggle">
+    <input type="checkbox" id="sidebar-toggle">
     <div class="sidebar">
-        <div class="sidebar-brand">
-            <h2><span class="las la-clinic-medical"></span> <span>MyApotek</span></h2>
+        <div class="sidebar-header">
+            <h3 class="brand">
+                <span class="ti-unlink"></span>
+                <span>easywire</span>
+            </h3>
+            <label for="sidebar-toggle" class="ti-menu-alt"></label>
         </div>
-        <!--Secciones-del-tablero-->
+
         <div class="sidebar-menu">
             <ul>
-                <?php if ($_SESSION['leveluser'] == '1') : ?>
+                <li>
+                    <a href="../../src/Index.html">
+                        <span class="ti-home"></span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Thalamancreate.php">
+                        <span class="ti-face-smile"></span>
+                        <span>Transaksi</span>
+                    </a>
+                </li>
+                <?php if ($_SESSION['leveluser'] != '1') : ?>
                     <li>
-                        <a href="../Dashboard/index.php" class="active"><span class="las la-home"></span>
-                            <span>Home</span></a>
+                        <a href="Ttampilan.php">
+                            <span class="ti-agenda"></span>
+                            <span>mutasi</span>
+                        </a>
                     </li>
                 <?php endif; ?>
                 <li>
-                    <a href="../Obat/Otampilan.php"><span class="las la-stethoscope"></span>
-                        <span>Obat</span></a>
-                </li>
-                <li>
-                    <a href="../karyawan/Ktampilan.php"><span class="las la-user"></span>
-                        <span>Karyawan</span></a>
-                </li>
-                <li>
-                    <a href="../Pelanggan/Ptampilan.php"><span class="las la-user-injured"></span>
-                        <span>Pelanggan</span></a>
-                </li>
-                <li>
-                    <a href="../Transaksi/Ttampilan.php"><span class="las la-history"></span>
-                        <span>Transaksi</span></a>
-                </li>
-                <li>
-                    <a href="../Supplier/Stampilan.php"><span class="las la-book-medical"></span>
-                        <span>Supplier</span></a>
-                </li>
-                <li>
-                    <a href=""><span class="las la-search"></span>
-                        <span>Search</span></a>
-                </li>
-                <li>
-                    <a href="../login/logout.php"><span class="las la-bars"></span>
-                        <span>Logout</span></a>
+                    <a href="../../src/logout.php">
+                        <span class="ti-sign-out"></span>
+                        <span>Logout</span>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
-
 
     <div class="main-content">
 
